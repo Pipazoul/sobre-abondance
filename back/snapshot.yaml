@@ -1,0 +1,2204 @@
+version: 1
+directus: 9.20.4
+collections:
+  - collection: Events
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: Events
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: calendar_month
+      item_duplication_fields: null
+      note: null
+      singleton: false
+      sort: 3
+      sort_field: null
+      translations: null
+      unarchive_value: null
+    schema:
+      name: Events
+      sql: >-
+        CREATE TABLE "Events" (`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+        `user_created` char(36) NULL, `date_created` datetime NULL,
+        `user_updated` char(36) NULL, `date_updated` datetime NULL, `title`
+        varchar(255) NULL, `content` text NULL, `id_events` integer NULL,
+        `production` integer NULL, `consumption` integer NULL, `event_date` date
+        NULL, `storage` integer null, CONSTRAINT `events_user_created_foreign`
+        FOREIGN KEY (`user_created`) REFERENCES `directus_users` (`id`),
+        CONSTRAINT `events_user_updated_foreign` FOREIGN KEY (`user_updated`)
+        REFERENCES `directus_users` (`id`), CONSTRAINT
+        `events_id_events_foreign` FOREIGN KEY (`id_events`) REFERENCES
+        `Materials` (`id`) ON DELETE SET NULL)
+  - collection: Materials
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: Materials
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: filter_hdr
+      item_duplication_fields: null
+      note: null
+      singleton: false
+      sort: 1
+      sort_field: null
+      translations: null
+      unarchive_value: null
+    schema:
+      name: Materials
+      sql: >-
+        CREATE TABLE "Materials" (`id` integer PRIMARY KEY AUTOINCREMENT NOT
+        NULL, `user_created` char(36) NULL, `date_created` datetime NULL,
+        `user_updated` char(36) NULL, `date_updated` datetime NULL,
+        `description` text NULL, `name` varchar(255) NULL, `unit` varchar(255)
+        NULL, `main_producers` json NULL, `id_materials` integer NULL, `icon`
+        varchar(255) null, CONSTRAINT `materials_user_created_foreign` FOREIGN
+        KEY (`user_created`) REFERENCES `directus_users` (`id`), CONSTRAINT
+        `materials_user_updated_foreign` FOREIGN KEY (`user_updated`) REFERENCES
+        `directus_users` (`id`), CONSTRAINT `materials_id_materials_foreign`
+        FOREIGN KEY (`id_materials`) REFERENCES `Products` (`id`) ON DELETE SET
+        NULL)
+  - collection: Products
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: Products
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      singleton: false
+      sort: 2
+      sort_field: null
+      translations: null
+      unarchive_value: null
+    schema:
+      name: Products
+      sql: >-
+        CREATE TABLE "Products" (`id` integer PRIMARY KEY AUTOINCREMENT NOT
+        NULL, `user_created` char(36) NULL, `date_created` datetime NULL,
+        `user_updated` char(36) NULL, `date_updated` datetime NULL, `name`
+        varchar(255) NULL, `description` text NULL, `id_products` integer NULL,
+        CONSTRAINT `products_user_created_foreign` FOREIGN KEY (`user_created`)
+        REFERENCES `directus_users` (`id`), CONSTRAINT
+        `products_user_updated_foreign` FOREIGN KEY (`user_updated`) REFERENCES
+        `directus_users` (`id`), CONSTRAINT `products_id_products_foreign`
+        FOREIGN KEY (`id_products`) REFERENCES `Materials` (`id`) ON DELETE SET
+        NULL)
+  - collection: Products_Materials
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: Products_Materials
+      color: null
+      display_template: null
+      group: null
+      hidden: true
+      icon: import_export
+      item_duplication_fields: null
+      note: null
+      singleton: false
+      sort: null
+      sort_field: null
+      translations: null
+      unarchive_value: null
+    schema:
+      name: Products_Materials
+      sql: >-
+        CREATE TABLE "Products_Materials" (`id` integer PRIMARY KEY
+        AUTOINCREMENT NOT NULL, `Products_id` integer NULL, `Materials_id`
+        integer NULL, CONSTRAINT `products_materials_materials_id_foreign`
+        FOREIGN KEY (`Materials_id`) REFERENCES `Materials` (`id`) ON DELETE SET
+        NULL, CONSTRAINT `products_materials_products_id_foreign` FOREIGN KEY
+        (`Products_id`) REFERENCES `Products` (`id`) ON DELETE SET NULL)
+  - collection: Sources
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: Sources
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      singleton: false
+      sort: null
+      sort_field: null
+      translations: null
+      unarchive_value: null
+    schema:
+      name: Sources
+      sql: >-
+        CREATE TABLE "Sources" (`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+        `user_created` char(36) NULL, `date_created` datetime NULL,
+        `user_updated` char(36) NULL, `date_updated` datetime NULL, `title`
+        varchar(255) NULL, `link` varchar(255) NULL, `id_sources` integer NULL,
+        CONSTRAINT `sources_user_created_foreign` FOREIGN KEY (`user_created`)
+        REFERENCES `directus_users` (`id`), CONSTRAINT
+        `sources_user_updated_foreign` FOREIGN KEY (`user_updated`) REFERENCES
+        `directus_users` (`id`), CONSTRAINT `sources_id_sources_foreign` FOREIGN
+        KEY (`id_sources`) REFERENCES `Materials` (`id`) ON DELETE SET NULL)
+fields:
+  - collection: Events
+    field: consumption
+    meta:
+      collection: Events
+      conditions: null
+      display: null
+      display_options: null
+      field: consumption
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 10
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: integer
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: null
+      name: consumption
+      numeric_precision: null
+      numeric_scale: null
+      table: Events
+    type: integer
+  - collection: Events
+    field: content
+    meta:
+      collection: Events
+      conditions: null
+      display: null
+      display_options: null
+      field: content
+      group: null
+      hidden: false
+      interface: input-rich-text-html
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 8
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: text
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: null
+      name: content
+      numeric_precision: null
+      numeric_scale: null
+      table: Events
+    type: text
+  - collection: Events
+    field: date_created
+    meta:
+      collection: Events
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_created
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 4
+      special:
+        - cast-timestamp
+        - date-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      data_type: datetime
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: null
+      name: date_created
+      numeric_precision: null
+      numeric_scale: null
+      table: Events
+    type: timestamp
+  - collection: Events
+    field: date_updated
+    meta:
+      collection: Events
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 6
+      special:
+        - cast-timestamp
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      data_type: datetime
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: null
+      name: date_updated
+      numeric_precision: null
+      numeric_scale: null
+      table: Events
+    type: timestamp
+  - collection: Events
+    field: event_date
+    meta:
+      collection: Events
+      conditions: null
+      display: null
+      display_options: null
+      field: event_date
+      group: null
+      hidden: false
+      interface: datetime
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 7
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: date
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: null
+      name: event_date
+      numeric_precision: null
+      numeric_scale: null
+      table: Events
+    type: date
+  - collection: Events
+    field: id
+    meta:
+      collection: Events
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: integer
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: true
+      is_generated: false
+      is_nullable: false
+      is_primary_key: true
+      is_unique: false
+      max_length: null
+      name: id
+      numeric_precision: null
+      numeric_scale: null
+      table: Events
+    type: integer
+  - collection: Events
+    field: id_events
+    meta:
+      collection: Events
+      conditions: null
+      display: null
+      display_options: null
+      field: id_events
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 12
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: integer
+      default_value: null
+      foreign_key_column: id
+      foreign_key_table: Materials
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: null
+      name: id_events
+      numeric_precision: null
+      numeric_scale: null
+      table: Events
+    type: integer
+  - collection: Events
+    field: production
+    meta:
+      collection: Events
+      conditions: null
+      display: null
+      display_options: null
+      field: production
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 9
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: integer
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: null
+      name: production
+      numeric_precision: null
+      numeric_scale: null
+      table: Events
+    type: integer
+  - collection: Events
+    field: storage
+    meta:
+      collection: Events
+      conditions: null
+      display: null
+      display_options: null
+      field: storage
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: null
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: integer
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: null
+      name: storage
+      numeric_precision: null
+      numeric_scale: null
+      table: Events
+    type: integer
+  - collection: Events
+    field: title
+    meta:
+      collection: Events
+      conditions: null
+      display: null
+      display_options: null
+      field: title
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: varchar
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: 255
+      name: title
+      numeric_precision: null
+      numeric_scale: null
+      table: Events
+    type: string
+  - collection: Events
+    field: user_created
+    meta:
+      collection: Events
+      conditions: null
+      display: user
+      display_options: null
+      field: user_created
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 3
+      special:
+        - user-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      data_type: char
+      default_value: null
+      foreign_key_column: id
+      foreign_key_table: directus_users
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: 36
+      name: user_created
+      numeric_precision: null
+      numeric_scale: null
+      table: Events
+    type: string
+  - collection: Events
+    field: user_updated
+    meta:
+      collection: Events
+      conditions: null
+      display: user
+      display_options: null
+      field: user_updated
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 5
+      special:
+        - user-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      data_type: char
+      default_value: null
+      foreign_key_column: id
+      foreign_key_table: directus_users
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: 36
+      name: user_updated
+      numeric_precision: null
+      numeric_scale: null
+      table: Events
+    type: string
+  - collection: Materials
+    field: date_created
+    meta:
+      collection: Materials
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_created
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 8
+      special:
+        - cast-timestamp
+        - date-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      data_type: datetime
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: null
+      name: date_created
+      numeric_precision: null
+      numeric_scale: null
+      table: Materials
+    type: timestamp
+  - collection: Materials
+    field: date_updated
+    meta:
+      collection: Materials
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 10
+      special:
+        - cast-timestamp
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      data_type: datetime
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: null
+      name: date_updated
+      numeric_precision: null
+      numeric_scale: null
+      table: Materials
+    type: timestamp
+  - collection: Materials
+    field: description
+    meta:
+      collection: Materials
+      conditions: null
+      display: null
+      display_options: null
+      field: description
+      group: null
+      hidden: false
+      interface: input-multiline
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: text
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: null
+      name: description
+      numeric_precision: null
+      numeric_scale: null
+      table: Materials
+    type: text
+  - collection: Materials
+    field: events
+    meta:
+      collection: Materials
+      conditions: null
+      display: null
+      display_options: null
+      field: events
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options:
+        template: "{{title}}\_-\_{{event_date}}"
+      readonly: false
+      required: false
+      sort: 12
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema: null
+    type: alias
+  - collection: Materials
+    field: icon
+    meta:
+      collection: Materials
+      conditions: null
+      display: null
+      display_options: null
+      field: icon
+      group: null
+      hidden: false
+      interface: select-icon
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: varchar
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: 255
+      name: icon
+      numeric_precision: null
+      numeric_scale: null
+      table: Materials
+    type: string
+  - collection: Materials
+    field: id
+    meta:
+      collection: Materials
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: integer
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: true
+      is_generated: false
+      is_nullable: false
+      is_primary_key: true
+      is_unique: false
+      max_length: null
+      name: id
+      numeric_precision: null
+      numeric_scale: null
+      table: Materials
+    type: integer
+  - collection: Materials
+    field: id_materials
+    meta:
+      collection: Materials
+      conditions: null
+      display: null
+      display_options: null
+      field: id_materials
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{name}}'
+      readonly: false
+      required: false
+      sort: 14
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: integer
+      default_value: null
+      foreign_key_column: id
+      foreign_key_table: Products
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: null
+      name: id_materials
+      numeric_precision: null
+      numeric_scale: null
+      table: Materials
+    type: integer
+  - collection: Materials
+    field: main_producers
+    meta:
+      collection: Materials
+      conditions: null
+      display: null
+      display_options: null
+      field: main_producers
+      group: null
+      hidden: false
+      interface: tags
+      note: null
+      options:
+        capitalization: lowercase
+        whitespace: '-'
+      readonly: false
+      required: false
+      sort: 5
+      special:
+        - cast-json
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: json
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: null
+      name: main_producers
+      numeric_precision: null
+      numeric_scale: null
+      table: Materials
+    type: json
+  - collection: Materials
+    field: name
+    meta:
+      collection: Materials
+      conditions: null
+      display: null
+      display_options: null
+      field: name
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: varchar
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: 255
+      name: name
+      numeric_precision: null
+      numeric_scale: null
+      table: Materials
+    type: string
+  - collection: Materials
+    field: products
+    meta:
+      collection: Materials
+      conditions: null
+      display: null
+      display_options: null
+      field: products
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options:
+        template: null
+      readonly: false
+      required: false
+      sort: 11
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema: null
+    type: alias
+  - collection: Materials
+    field: sources
+    meta:
+      collection: Materials
+      conditions: null
+      display: null
+      display_options: null
+      field: sources
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 13
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema: null
+    type: alias
+  - collection: Materials
+    field: unit
+    meta:
+      collection: Materials
+      conditions: null
+      display: null
+      display_options: null
+      field: unit
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: null
+      options:
+        choices:
+          - text: kg
+            value: kg
+          - text: t
+            value: t
+      readonly: false
+      required: false
+      sort: 6
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: varchar
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: 255
+      name: unit
+      numeric_precision: null
+      numeric_scale: null
+      table: Materials
+    type: string
+  - collection: Materials
+    field: user_created
+    meta:
+      collection: Materials
+      conditions: null
+      display: user
+      display_options: null
+      field: user_created
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 7
+      special:
+        - user-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      data_type: char
+      default_value: null
+      foreign_key_column: id
+      foreign_key_table: directus_users
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: 36
+      name: user_created
+      numeric_precision: null
+      numeric_scale: null
+      table: Materials
+    type: string
+  - collection: Materials
+    field: user_updated
+    meta:
+      collection: Materials
+      conditions: null
+      display: user
+      display_options: null
+      field: user_updated
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 9
+      special:
+        - user-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      data_type: char
+      default_value: null
+      foreign_key_column: id
+      foreign_key_table: directus_users
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: 36
+      name: user_updated
+      numeric_precision: null
+      numeric_scale: null
+      table: Materials
+    type: string
+  - collection: Products
+    field: date_created
+    meta:
+      collection: Products
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_created
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 7
+      special:
+        - cast-timestamp
+        - date-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      data_type: datetime
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: null
+      name: date_created
+      numeric_precision: null
+      numeric_scale: null
+      table: Products
+    type: timestamp
+  - collection: Products
+    field: date_updated
+    meta:
+      collection: Products
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 9
+      special:
+        - cast-timestamp
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      data_type: datetime
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: null
+      name: date_updated
+      numeric_precision: null
+      numeric_scale: null
+      table: Products
+    type: timestamp
+  - collection: Products
+    field: description
+    meta:
+      collection: Products
+      conditions: null
+      display: null
+      display_options: null
+      field: description
+      group: null
+      hidden: false
+      interface: input-multiline
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: text
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: null
+      name: description
+      numeric_precision: null
+      numeric_scale: null
+      table: Products
+    type: text
+  - collection: Products
+    field: id
+    meta:
+      collection: Products
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: integer
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: true
+      is_generated: false
+      is_nullable: false
+      is_primary_key: true
+      is_unique: false
+      max_length: null
+      name: id
+      numeric_precision: null
+      numeric_scale: null
+      table: Products
+    type: integer
+  - collection: Products
+    field: id_products
+    meta:
+      collection: Products
+      conditions: null
+      display: null
+      display_options: null
+      field: id_products
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: integer
+      default_value: null
+      foreign_key_column: id
+      foreign_key_table: Materials
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: null
+      name: id_products
+      numeric_precision: null
+      numeric_scale: null
+      table: Products
+    type: integer
+  - collection: Products
+    field: materials
+    meta:
+      collection: Products
+      conditions: null
+      display: null
+      display_options: null
+      field: materials
+      group: null
+      hidden: false
+      interface: list-m2m
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 5
+      special:
+        - m2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema: null
+    type: alias
+  - collection: Products
+    field: name
+    meta:
+      collection: Products
+      conditions: null
+      display: null
+      display_options: null
+      field: name
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: varchar
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: 255
+      name: name
+      numeric_precision: null
+      numeric_scale: null
+      table: Products
+    type: string
+  - collection: Products
+    field: user_created
+    meta:
+      collection: Products
+      conditions: null
+      display: user
+      display_options: null
+      field: user_created
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 6
+      special:
+        - user-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      data_type: char
+      default_value: null
+      foreign_key_column: id
+      foreign_key_table: directus_users
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: 36
+      name: user_created
+      numeric_precision: null
+      numeric_scale: null
+      table: Products
+    type: string
+  - collection: Products
+    field: user_updated
+    meta:
+      collection: Products
+      conditions: null
+      display: user
+      display_options: null
+      field: user_updated
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 8
+      special:
+        - user-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      data_type: char
+      default_value: null
+      foreign_key_column: id
+      foreign_key_table: directus_users
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: 36
+      name: user_updated
+      numeric_precision: null
+      numeric_scale: null
+      table: Products
+    type: string
+  - collection: Products_Materials
+    field: Materials_id
+    meta:
+      collection: Products_Materials
+      conditions: null
+      display: null
+      display_options: null
+      field: Materials_id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: null
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: integer
+      default_value: null
+      foreign_key_column: id
+      foreign_key_table: Materials
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: null
+      name: Materials_id
+      numeric_precision: null
+      numeric_scale: null
+      table: Products_Materials
+    type: integer
+  - collection: Products_Materials
+    field: Products_id
+    meta:
+      collection: Products_Materials
+      conditions: null
+      display: null
+      display_options: null
+      field: Products_id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: null
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: integer
+      default_value: null
+      foreign_key_column: id
+      foreign_key_table: Products
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: null
+      name: Products_id
+      numeric_precision: null
+      numeric_scale: null
+      table: Products_Materials
+    type: integer
+  - collection: Products_Materials
+    field: id
+    meta:
+      collection: Products_Materials
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: null
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: integer
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: true
+      is_generated: false
+      is_nullable: false
+      is_primary_key: true
+      is_unique: false
+      max_length: null
+      name: id
+      numeric_precision: null
+      numeric_scale: null
+      table: Products_Materials
+    type: integer
+  - collection: Sources
+    field: date_created
+    meta:
+      collection: Sources
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_created
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 4
+      special:
+        - cast-timestamp
+        - date-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      data_type: datetime
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: null
+      name: date_created
+      numeric_precision: null
+      numeric_scale: null
+      table: Sources
+    type: timestamp
+  - collection: Sources
+    field: date_updated
+    meta:
+      collection: Sources
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 6
+      special:
+        - cast-timestamp
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      data_type: datetime
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: null
+      name: date_updated
+      numeric_precision: null
+      numeric_scale: null
+      table: Sources
+    type: timestamp
+  - collection: Sources
+    field: id
+    meta:
+      collection: Sources
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: integer
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: true
+      is_generated: false
+      is_nullable: false
+      is_primary_key: true
+      is_unique: false
+      max_length: null
+      name: id
+      numeric_precision: null
+      numeric_scale: null
+      table: Sources
+    type: integer
+  - collection: Sources
+    field: id_sources
+    meta:
+      collection: Sources
+      conditions: null
+      display: null
+      display_options: null
+      field: id_sources
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: null
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: integer
+      default_value: null
+      foreign_key_column: id
+      foreign_key_table: Materials
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: null
+      name: id_sources
+      numeric_precision: null
+      numeric_scale: null
+      table: Sources
+    type: integer
+  - collection: Sources
+    field: link
+    meta:
+      collection: Sources
+      conditions: null
+      display: null
+      display_options: null
+      field: link
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: null
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: varchar
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: 255
+      name: link
+      numeric_precision: null
+      numeric_scale: null
+      table: Sources
+    type: string
+  - collection: Sources
+    field: title
+    meta:
+      collection: Sources
+      conditions: null
+      display: null
+      display_options: null
+      field: title
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: true
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: varchar
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: 255
+      name: title
+      numeric_precision: null
+      numeric_scale: null
+      table: Sources
+    type: string
+  - collection: Sources
+    field: user_created
+    meta:
+      collection: Sources
+      conditions: null
+      display: user
+      display_options: null
+      field: user_created
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 3
+      special:
+        - user-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      data_type: char
+      default_value: null
+      foreign_key_column: id
+      foreign_key_table: directus_users
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: 36
+      name: user_created
+      numeric_precision: null
+      numeric_scale: null
+      table: Sources
+    type: string
+  - collection: Sources
+    field: user_updated
+    meta:
+      collection: Sources
+      conditions: null
+      display: user
+      display_options: null
+      field: user_updated
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 5
+      special:
+        - user-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      data_type: char
+      default_value: null
+      foreign_key_column: id
+      foreign_key_table: directus_users
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: 36
+      name: user_updated
+      numeric_precision: null
+      numeric_scale: null
+      table: Sources
+    type: string
+relations:
+  - collection: Events
+    field: id_events
+    meta:
+      junction_field: null
+      many_collection: Events
+      many_field: id_events
+      one_allowed_collections: null
+      one_collection: Materials
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: events
+      sort_field: null
+    related_collection: Materials
+    schema:
+      column: id_events
+      constraint_name: null
+      foreign_key_column: id
+      foreign_key_table: Materials
+      on_delete: SET NULL
+      on_update: NO ACTION
+      table: Events
+  - collection: Events
+    field: user_created
+    meta:
+      junction_field: null
+      many_collection: Events
+      many_field: user_created
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    related_collection: directus_users
+    schema:
+      column: user_created
+      constraint_name: null
+      foreign_key_column: id
+      foreign_key_table: directus_users
+      on_delete: NO ACTION
+      on_update: NO ACTION
+      table: Events
+  - collection: Events
+    field: user_updated
+    meta:
+      junction_field: null
+      many_collection: Events
+      many_field: user_updated
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    related_collection: directus_users
+    schema:
+      column: user_updated
+      constraint_name: null
+      foreign_key_column: id
+      foreign_key_table: directus_users
+      on_delete: NO ACTION
+      on_update: NO ACTION
+      table: Events
+  - collection: Materials
+    field: id_materials
+    meta:
+      junction_field: null
+      many_collection: Materials
+      many_field: id_materials
+      one_allowed_collections: null
+      one_collection: Products
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    related_collection: Products
+    schema:
+      column: id_materials
+      constraint_name: null
+      foreign_key_column: id
+      foreign_key_table: Products
+      on_delete: SET NULL
+      on_update: NO ACTION
+      table: Materials
+  - collection: Materials
+    field: user_created
+    meta:
+      junction_field: null
+      many_collection: Materials
+      many_field: user_created
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    related_collection: directus_users
+    schema:
+      column: user_created
+      constraint_name: null
+      foreign_key_column: id
+      foreign_key_table: directus_users
+      on_delete: NO ACTION
+      on_update: NO ACTION
+      table: Materials
+  - collection: Materials
+    field: user_updated
+    meta:
+      junction_field: null
+      many_collection: Materials
+      many_field: user_updated
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    related_collection: directus_users
+    schema:
+      column: user_updated
+      constraint_name: null
+      foreign_key_column: id
+      foreign_key_table: directus_users
+      on_delete: NO ACTION
+      on_update: NO ACTION
+      table: Materials
+  - collection: Products
+    field: id_products
+    meta:
+      junction_field: null
+      many_collection: Products
+      many_field: id_products
+      one_allowed_collections: null
+      one_collection: Materials
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: products
+      sort_field: null
+    related_collection: Materials
+    schema:
+      column: id_products
+      constraint_name: null
+      foreign_key_column: id
+      foreign_key_table: Materials
+      on_delete: SET NULL
+      on_update: NO ACTION
+      table: Products
+  - collection: Products
+    field: user_created
+    meta:
+      junction_field: null
+      many_collection: Products
+      many_field: user_created
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    related_collection: directus_users
+    schema:
+      column: user_created
+      constraint_name: null
+      foreign_key_column: id
+      foreign_key_table: directus_users
+      on_delete: NO ACTION
+      on_update: NO ACTION
+      table: Products
+  - collection: Products
+    field: user_updated
+    meta:
+      junction_field: null
+      many_collection: Products
+      many_field: user_updated
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    related_collection: directus_users
+    schema:
+      column: user_updated
+      constraint_name: null
+      foreign_key_column: id
+      foreign_key_table: directus_users
+      on_delete: NO ACTION
+      on_update: NO ACTION
+      table: Products
+  - collection: Products_Materials
+    field: Materials_id
+    meta:
+      junction_field: Products_id
+      many_collection: Products_Materials
+      many_field: Materials_id
+      one_allowed_collections: null
+      one_collection: Materials
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    related_collection: Materials
+    schema:
+      column: Materials_id
+      constraint_name: null
+      foreign_key_column: id
+      foreign_key_table: Materials
+      on_delete: SET NULL
+      on_update: NO ACTION
+      table: Products_Materials
+  - collection: Products_Materials
+    field: Products_id
+    meta:
+      junction_field: Materials_id
+      many_collection: Products_Materials
+      many_field: Products_id
+      one_allowed_collections: null
+      one_collection: Products
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: materials
+      sort_field: null
+    related_collection: Products
+    schema:
+      column: Products_id
+      constraint_name: null
+      foreign_key_column: id
+      foreign_key_table: Products
+      on_delete: SET NULL
+      on_update: NO ACTION
+      table: Products_Materials
+  - collection: Sources
+    field: id_sources
+    meta:
+      junction_field: null
+      many_collection: Sources
+      many_field: id_sources
+      one_allowed_collections: null
+      one_collection: Materials
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: sources
+      sort_field: null
+    related_collection: Materials
+    schema:
+      column: id_sources
+      constraint_name: null
+      foreign_key_column: id
+      foreign_key_table: Materials
+      on_delete: SET NULL
+      on_update: NO ACTION
+      table: Sources
+  - collection: Sources
+    field: user_created
+    meta:
+      junction_field: null
+      many_collection: Sources
+      many_field: user_created
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    related_collection: directus_users
+    schema:
+      column: user_created
+      constraint_name: null
+      foreign_key_column: id
+      foreign_key_table: directus_users
+      on_delete: NO ACTION
+      on_update: NO ACTION
+      table: Sources
+  - collection: Sources
+    field: user_updated
+    meta:
+      junction_field: null
+      many_collection: Sources
+      many_field: user_updated
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    related_collection: directus_users
+    schema:
+      column: user_updated
+      constraint_name: null
+      foreign_key_column: id
+      foreign_key_table: directus_users
+      on_delete: NO ACTION
+      on_update: NO ACTION
+      table: Sources
