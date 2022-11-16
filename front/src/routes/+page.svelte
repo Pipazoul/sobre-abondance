@@ -1,23 +1,20 @@
 <script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
+	import Materials from "./Materials.svelte";
 </script>
 
 <svelte:head>
 	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<meta name="description" content="Sobre abondance" />
 </svelte:head>
 
 <section>
-	<h1 class="text-3xl font-bold underline">
-		Hello world!
-	  </h1>
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
+	<div class="w-1/2 mt-5">
+		<h2 class="text-2xl">Référenciel des matériaux</h2>
+		<p>
+			La liste ci dessous est un référenciel des matériaux utilisés dans le quotidien ainsi qu'une visualisation de leur rareté
+		</p>
+		<Materials />
+	</div>
 </section>
 
 <style>
@@ -27,25 +24,5 @@
 		justify-content: center;
 		align-items: center;
 		flex: 0.6;
-	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
 	}
 </style>
