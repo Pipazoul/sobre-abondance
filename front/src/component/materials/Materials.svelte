@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {getItems} from '../lib/api';
+    import {getItems} from '$lib/api';
 
     let request = getItems("Materials");
 </script>
@@ -11,10 +11,12 @@
             <p>Chargement...</p>
         {:then materials}
             {#each materials as material}
-                <div class="flex align-middle cursor-pointer mt-5">
-                    <span class="material-icons">{material.icon}</span>
-                    {material.name}
-                </div>
+                <a href="/materials/{material.id}">
+                    <div class="flex align-middle cursor-pointer mt-5 p-4 border">
+                        <span class="material-icons pr-5">{material.icon}</span>
+                        {material.name}
+                    </div>
+                </a>
             {/each}
         {:catch error}
             <p>Erreur: {error.message}</p>

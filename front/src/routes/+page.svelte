@@ -1,5 +1,5 @@
 <script>
-	import Materials from "./Materials.svelte";
+	import Materials from "../component/materials/Materials.svelte";
 </script>
 
 <svelte:head>
@@ -8,7 +8,7 @@
 </svelte:head>
 
 <section>
-	<div class="w-1/2 mt-5">
+	<div>
 		<h2 class="text-2xl">Référenciel des matériaux</h2>
 		<p>
 			La liste ci dessous est un référenciel des matériaux utilisés dans le quotidien ainsi qu'une visualisation de leur rareté

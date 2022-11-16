@@ -6,7 +6,7 @@
 <div class="app">
 	<Header />
 
-	<main>
+	<main class="m-auto w-1/2 mt-5">
 		<slot />
 	</main>
 
