@@ -6,8 +6,6 @@
 		<h1>Sobre Abondance</h1>
 	</a>
 	<nav class="flex flex-row space-x-5">
-		<p>Matériaux</p>
-		<p>Produits</p>
 	</nav>
 </header>
 
