@@ -1,11 +1,8 @@
 <script lang="ts">
     import {getItem} from '$lib/api';
+	import Events from '../events/Events.svelte';
     export let id;
     let materials = getItem("Materials", id);
-
-    materials.then((data) => {
-        console.log(data);
-    });
 
 </script>
 
@@ -16,6 +13,7 @@
         {:then material}
             <h1 class="flex align-middle"><span class="material-icons pr-5">{material.icon}</span>{material.name}</h1>
             <p>{material?.description}</p>
+            <Events ids={material?.events} unit={material.unit}/>
         {:catch error}
             <p>Erreur: {error.message}</p>
         {/await}
