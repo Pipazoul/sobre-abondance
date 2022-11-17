@@ -28,13 +28,12 @@ collections:
         `user_created` char(36) NULL, `date_created` datetime NULL,
         `user_updated` char(36) NULL, `date_updated` datetime NULL, `title`
         varchar(255) NULL, `content` text NULL, `id_events` integer NULL,
-        `production` integer NULL, `consumption` integer NULL, `event_date` date
-        NULL, `storage` integer null, CONSTRAINT `events_user_created_foreign`
-        FOREIGN KEY (`user_created`) REFERENCES `directus_users` (`id`),
-        CONSTRAINT `events_user_updated_foreign` FOREIGN KEY (`user_updated`)
-        REFERENCES `directus_users` (`id`), CONSTRAINT
-        `events_id_events_foreign` FOREIGN KEY (`id_events`) REFERENCES
-        `Materials` (`id`) ON DELETE SET NULL)
+        `event_date` date NULL, `handling_type` varchar(255) NULL, `quantity`
+        integer NULL, CONSTRAINT `events_user_created_foreign` FOREIGN KEY
+        (`user_created`) REFERENCES `directus_users` (`id`), CONSTRAINT
+        `events_user_updated_foreign` FOREIGN KEY (`user_updated`) REFERENCES
+        `directus_users` (`id`), CONSTRAINT `events_id_events_foreign` FOREIGN
+        KEY (`id_events`) REFERENCES `Materials` (`id`) ON DELETE SET NULL)
   - collection: Materials
     meta:
       accountability: all
@@ -164,44 +163,6 @@ collections:
         `directus_users` (`id`), CONSTRAINT `sources_id_sources_foreign` FOREIGN
         KEY (`id_sources`) REFERENCES `Materials` (`id`) ON DELETE SET NULL)
 fields:
-  - collection: Events
-    field: consumption
-    meta:
-      collection: Events
-      conditions: null
-      display: null
-      display_options: null
-      field: consumption
-      group: null
-      hidden: false
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 10
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      data_type: integer
-      default_value: null
-      foreign_key_column: null
-      foreign_key_table: null
-      generation_expression: null
-      has_auto_increment: false
-      is_generated: false
-      is_nullable: true
-      is_primary_key: false
-      is_unique: false
-      max_length: null
-      name: consumption
-      numeric_precision: null
-      numeric_scale: null
-      table: Events
-    type: integer
   - collection: Events
     field: content
     meta:
@@ -361,6 +322,51 @@ fields:
       table: Events
     type: date
   - collection: Events
+    field: handling_type
+    meta:
+      collection: Events
+      conditions: null
+      display: null
+      display_options: null
+      field: handling_type
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: null
+      options:
+        choices:
+          - text: production
+            value: production
+          - text: consumption
+            value: consumption
+          - text: stock
+            value: stock
+      readonly: false
+      required: false
+      sort: 9
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      data_type: varchar
+      default_value: null
+      foreign_key_column: null
+      foreign_key_table: null
+      generation_expression: null
+      has_auto_increment: false
+      is_generated: false
+      is_nullable: true
+      is_primary_key: false
+      is_unique: false
+      max_length: 255
+      name: handling_type
+      numeric_precision: null
+      numeric_scale: null
+      table: Events
+    type: string
+  - collection: Events
     field: id
     meta:
       collection: Events
@@ -413,7 +419,7 @@ fields:
       options: null
       readonly: false
       required: false
-      sort: 12
+      sort: 10
       special: null
       translations: null
       validation: null
@@ -437,51 +443,13 @@ fields:
       table: Events
     type: integer
   - collection: Events
-    field: production
+    field: quantity
     meta:
       collection: Events
       conditions: null
       display: null
       display_options: null
-      field: production
-      group: null
-      hidden: false
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 9
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      data_type: integer
-      default_value: null
-      foreign_key_column: null
-      foreign_key_table: null
-      generation_expression: null
-      has_auto_increment: false
-      is_generated: false
-      is_nullable: true
-      is_primary_key: false
-      is_unique: false
-      max_length: null
-      name: production
-      numeric_precision: null
-      numeric_scale: null
-      table: Events
-    type: integer
-  - collection: Events
-    field: storage
-    meta:
-      collection: Events
-      conditions: null
-      display: null
-      display_options: null
-      field: storage
+      field: quantity
       group: null
       hidden: false
       interface: input
@@ -507,7 +475,7 @@ fields:
       is_primary_key: false
       is_unique: false
       max_length: null
-      name: storage
+      name: quantity
       numeric_precision: null
       numeric_scale: null
       table: Events
@@ -974,7 +942,7 @@ fields:
     meta:
       collection: Materials
       conditions: null
-      display: null
+      display: raw
       display_options: null
       field: products
       group: null
@@ -982,6 +950,7 @@ fields:
       interface: list-o2m
       note: null
       options:
+        filter: null
         template: null
       readonly: false
       required: false
