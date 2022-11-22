@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  sobre_abondance_front:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 3001:5173
+    environment:
+      - PUBLIC_API_URL="https://coucou.sa.doesnotexist.club/"
+    stdin_open: true
