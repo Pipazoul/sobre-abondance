@@ -1,4 +1,4 @@
-FROM node:lts as prod
+FROM node:lts-slim as prod
 
 COPY . /app
 

@@ -8,6 +8,4 @@ services:
     restart: always
     ports:
       - 3005:3000
-    environment:
-      - PUBLIC_API_URL="https://coucou.sa.doesnotexist.club/"
     stdin_open: true
