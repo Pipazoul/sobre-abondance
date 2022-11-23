@@ -45,7 +45,7 @@
 
 
             // get the shotage date for each event
-            let shortageDate = await getShortageDate(stockEvents[0].quantity, productionEvents[0].quantity, consumptionEvents[0].quantity);
+            let shortageDate = await getShortageDate(stockEvents[0]?.quantity, productionEvents[0]?.quantity, consumptionEvents[0]?.quantity);
 
             return shortageDate;
     }
@@ -57,7 +57,7 @@
     {:then eventsData}
         {#each eventsData.events as event}
             <div class="flex align-middle  mt-5 p-4 border">
-                {event.title} {event.quantity} {eventsData.unit}
+                {event.title} {event?.quantity} {eventsData.unit}
             </div>
         {/each}
         <p class="flex align-middle mt-5 p-4 border">Année de pénurie estimée : dans {eventsData.shortage} années</p>
