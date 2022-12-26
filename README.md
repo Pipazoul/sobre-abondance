@@ -12,6 +12,9 @@ Monorepo sobre abondance
 Start server
 `npx directus start`
 
+Update server
+npm update
+
 
 **Export db schema**
 `npx directus schema snapshot ./snapshot.yaml`
