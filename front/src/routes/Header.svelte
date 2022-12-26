@@ -1,11 +1,32 @@
 <script>
 </script>
 
-<header class="bg-black text-white p-5 flex flex-row justify-between">
-	<a href="/" >
-		<h1>Sobre Abondance</h1>
-	</a>
-	<nav class="flex flex-row space-x-5">
+<header class=" text-white p-5 ">	
+	<nav class="">
+		<ul class="flex items-center w-full justify-between">
+			<li>
+				<a href="/" >
+					<h1 class="text-2xl font-black uppercase">Sobre <br> Abondance</h1>
+				</a>
+			</li>
+			<div class="flex space-x-5">
+				<li>
+					<a href="/" >
+						<h1 class="text-2xl font-black uppercase">Materiaux</h1>
+					</a>
+				</li>
+				<li>
+					<a href="/" >
+						<h1 class="text-2xl font-black uppercase">Produits</h1>
+					</a>
+				</li>
+				<li>
+					<a href="/" >
+						<h1 class="text-2xl font-black uppercase">A propos</h1>
+					</a>
+				</li>
+			</div>
+		</ul>
 	</nav>
 </header>
 

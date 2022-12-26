@@ -8,11 +8,8 @@
 </svelte:head>
 
 <section>
-	<div>
-		<h2 class="text-2xl">Référenciel des matériaux</h2>
-		<p>
-			La liste ci dessous est un référenciel des matériaux utilisés dans le quotidien ainsi qu'une visualisation de leur rareté
-		</p>
+	<div class="w-full">
+		<h2 class="uppercase text-4xl font-black w-max mb-5">Selection matériaux</h2>
 		<Materials />
 	</div>
 </section>

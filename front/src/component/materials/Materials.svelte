@@ -4,17 +4,16 @@
     let request = getItems("Materials");
 </script>
 
-<section>
-    MATERIAUX
-    <div class="flex-col">
+<section class="w-full">
+    <div class="flex flex-row flex-wrap w-full ">
         {#await request}
             <p>Chargement...</p>
         {:then materials}
             {#each materials as material}
                 <a href="/materials/{material.id}">
-                    <div class="flex align-middle cursor-pointer mt-5 p-4 border">
-                        <span class="material-icons pr-5">{material.icon}</span>
-                        {material.name}
+                    <div class="flex flex-col  cursor-pointer p-4 bg-indigo-400 rounded-md h-52 w-52 ml-7 mb-7">
+                        <h3 class="text-3xl text-white uppercase font-black">{material.name}</h3>
+                        <!--<span class="material-icons pr-5 text-center ">{material.icon}</span>-->
                     </div>
                 </a>
             {/each}
