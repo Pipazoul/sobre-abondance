@@ -55,14 +55,19 @@
     {#await eventCalls()}
         <p>Chargement...</p>
     {:then eventsData}
-        {#each eventsData.events as event}
-            <div class="flex align-middle  mt-5 p-4 border">
-                {event.title} {event?.quantity} {eventsData.unit}
+
+        <h2 class="uppercase text-4xl font-black text-white mb-10">Durabilité</h2>
+        <div class="flex flex-row flex-wrap w-full">
+            <div class="flex flex-col  p-4 bg-indigo-400 rounded-md h-52 w-52 ml-7 mb-7 text-2xl uppercase font-bold justify-center text-center text-white">{eventsData.shortage} <br> années</div>
+            {#each eventsData.events as event}
+            <div class="flex flex-col  p-4 bg-indigo-400 rounded-md h-52 w-52 ml-7 mb-7 text-2xl uppercase font-bold justify-center text-center text-white">
+                 {event?.quantity} {eventsData.unit} <br> {event.title} 
             </div>
         {/each}
-        <p class="flex align-middle mt-5 p-4 border">Année de pénurie estimée : dans {eventsData.shortage} années</p>
+        </div>
 
-        <h2>Disponibilité sur les 200 prochaines années  </h2>
+
+        <!--<h2>Disponibilité sur les 200 prochaines années  </h2>
         <div class="flex flex-col">
             <div class="flex flex-wrap">Dispo : <div class="w-5 h-5 bg-green-500 border"></div></div>
             <div class="flex flex-wrap">Rupture : <div class="w-5 h-5 bg-red-600 border"></div></div>
@@ -77,6 +82,7 @@
             {/each}
         </div>
     {:catch error}
-        <p>Erreur: {error.message}</p>
+        <p>Erreur: {error.message}</p>    -->
     {/await}
+
 </section>
