@@ -1,20 +1,34 @@
-# sobre-abondance
-Monorepo sobre abondance
+# Sobre Abondance
 
+Sobre Abondance is a platform that highlights data related to potential shortages of resources and actions that can reduce resource consumption at the individual, business, and government level.
 
-## Front
+you can access the **alpha** platform at [sa.doesnotexist.club](https://sa.doesnotexist.club/)
 
-**Build for docker**
+## 📚 Getting Started
 
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
+### Prerequisites
+- Node.js
+- npm
 
-# Back
-Start server
-`npx directus start`
+### Installing
 
-Update server
-npm update
+**🧮 Front**
 
+```
+cd front
+npm install
+npm run dev
+```
 
-**Export db schema**
-`npx directus schema snapshot ./snapshot.yaml`
+**🏺 Back**
+
+```
+cd back
+npm install
+npx directus start
+```
+
+You can access the back at [http://localhost:8055](http://localhost:8055) and the front at [http://localhost:5173](http://localhost:5173)
+
